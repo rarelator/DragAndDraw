@@ -53,12 +53,17 @@ class BoxDrawingView(
             }
         }
         Log.d(TAG, "$action at x=${current.x}, y=${current.y}")
+        Log.d(TAG, "height is ${currentBox?.height}, width is ${currentBox?.width}")
         return true
     }
 
     private fun updateCurrentBox(current: PointF) {
         currentBox?.let {
             it.end = current
+
+            val minimum = Math.min(it.height, it.width)
+            it.end.x = it.start.x + minimum
+            it.end.y = it.start.y + minimum
             invalidate()
         }
     }
