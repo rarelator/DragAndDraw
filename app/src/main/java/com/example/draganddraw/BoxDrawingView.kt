@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 
 private const val TAG = "BoxDrawingView"
+private const val MAX_NUM_SHAPES = 3
 class BoxDrawingView(
     context: Context,
     attrs: AttributeSet? = null
@@ -32,7 +33,9 @@ class BoxDrawingView(
             MotionEvent.ACTION_DOWN -> {
                 action = "ACTION_DOWN"
                 currentBox = Box(current).also {
-                    boxes.add(it)
+                    if (boxes.size < MAX_NUM_SHAPES) {
+                        boxes.add(it)
+                    }
                 }
             }
 
