@@ -63,10 +63,6 @@ class BoxDrawingView(
     private fun updateCurrentBox(current: PointF) {
         currentBox?.let {
             it.end = current
-
-            val minimum = Math.min(it.height, it.width)
-            it.end.x = it.start.x + minimum
-            it.end.y = it.start.y + minimum
             invalidate()
         }
     }
@@ -74,7 +70,11 @@ class BoxDrawingView(
     override fun onDraw(canvas: Canvas) {
         canvas.drawPaint(backgroundPaint)
         boxes.forEach{box ->
-            canvas.drawRect(box.left, box.top, box.right, box.bottom, boxPaint)
+            if (box.width > box.height) {
+                canvas.drawRect(box.left, box.top, box.left + box.height, box.bottom, boxPaint)
+            } else {
+                canvas.drawOval(box.left, box.top, box.left + box.height, box.bottom, boxPaint)
+            }
         }
     }
 }
