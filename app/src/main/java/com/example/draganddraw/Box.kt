@@ -16,6 +16,7 @@ data class Box(val start: PointF) {
 
     val bottom: Float
         get() = Math.max(start.y, end.y)
+
     val height: Float
         get() = bottom - top
 
